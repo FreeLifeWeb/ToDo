@@ -1,0 +1,14 @@
+.myButton {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    max-width: 40%;
+    width: 100%;
+    color: white;
+    background-color: #1e6f9f;
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 20px;
+    cursor: pointer;
+}

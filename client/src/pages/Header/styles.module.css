@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100vw;
+    max-height: 20%;
+    height: 100%;
+    width: 100%;
+    background-color: #0d0d0d;
+}
+
+.title {
+    color: #1e6f9f;
+}
