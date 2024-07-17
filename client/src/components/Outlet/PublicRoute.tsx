@@ -6,5 +6,5 @@ interface IProps {
 }
 
 export const PublicRoute = ({ isAuth }: IProps) => {
-    return isAuth ? <Navigate to="./home" replace /> : <Outlet />;
+    return isAuth ? <Navigate to="/" replace /> : <Outlet />;
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store';
 import { logout } from '../../redux/slices/authSlice';
 
 export const Menu = () => {
+    const categories = useSelector((store: RootState) => store.todo.category);
     const user = useSelector((store: RootState) => store.auth.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ export const Menu = () => {
         navigate('/registration');
     }
     return (
-        <div className={styles.listGroupWrapper}>
+        <nav className={styles.listGroupWrapper}>
             <ul className={styles.listGroup}>
                 {!user ? (
                     <li className={styles.listItem}>
@@ -27,20 +28,20 @@ export const Menu = () => {
                 ) : (
                     <>
                         <li className={styles.listItem}>
-                            <Link className={styles.listItemLink} to="home">
-                                Home todo
+                            <Link className={styles.listItemLink} to="/">
+                                Add Todo
                             </Link>
                         </li>
-                        <li className={styles.listItem}>
-                            <Link className={styles.listItemLink} to="work">
-                                Work todo
-                            </Link>
-                        </li>
-                        <li className={styles.listItem}>
-                            <Link className={styles.listItemLink} to="lala">
-                                LaLa todo
-                            </Link>
-                        </li>
+                        {categories.map((category) => (
+                            <li key={category.id} className={styles.listItem}>
+                                <Link
+                                    className={styles.listItemLink}
+                                    to={`/category/${category.name}`}
+                                >
+                                    {category.name}
+                                </Link>
+                            </li>
+                        ))}
                         <li className={styles.listItem}>
                             <Link
                                 className={styles.listItemLink}
@@ -53,6 +54,6 @@ export const Menu = () => {
                     </>
                 )}
             </ul>
-        </div>
+        </nav>
     );
 };

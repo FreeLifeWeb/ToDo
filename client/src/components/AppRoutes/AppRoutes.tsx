@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { getInStore } from '../../helpers/saveInStore';
 import { privetRouter, publicRouter } from '../../Routes/router';
 import { PublicRoute } from '../Outlet/PublicRoute';
 import { PrivateRoute } from '../Outlet/PrivetRoute';
@@ -32,7 +31,7 @@ const AppRoutes = () => {
             <Route
                 path="*"
                 element={
-                    <Navigate to={isAuth ? '/home' : '/registration'} replace />
+                    <Navigate to={isAuth ? '/' : '/registration'} replace />
                 }
             />
         </Routes>

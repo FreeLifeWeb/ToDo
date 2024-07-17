@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import MyInput from '../../UI/MyInput/MyInput';
 import { MyButton } from '../../UI/MyButton/MyButton';
 import styles from './styles.module.css';
-import { setInStore } from '../../helpers/saveInStore';
+import { getInStore, setInStore } from '../../helpers/saveInStore';
 import { formValidation } from '../../helpers/formValidation';
 import { MyModal } from '../../UI/Modal/MyModal';
+import { useDispatch } from 'react-redux';
+import { addCategory, addTask } from '../../redux/slices/todoSlice';
 
 export interface IInput {
     category: string;
@@ -18,6 +20,7 @@ export const FormCreateToDo = () => {
         title: '',
         description: '',
     });
+    const dispatch = useDispatch();
     const [noInputData, setNoInputData] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -42,7 +45,30 @@ export const FormCreateToDo = () => {
             setNoInputData('Вы не ввели данные!');
         } else {
             setNoInputData('');
-            setInStore({ key: 'todo', data: input });
+            const task = { ...input, id: new Date().toString() };
+
+            const allCategory = getInStore<{ id: string; name: string }>(
+                'categores'
+            );
+            console.log('allCategory', allCategory);
+
+            const existCategory = allCategory.find(
+                (el) => el.name === input.category
+            );
+
+            if (existCategory) {
+                setInStore({ key: 'tasks', data: task });
+                dispatch(addTask(task));
+            } else {
+                const category = {
+                    id: new Date().toString(),
+                    name: input.category,
+                };
+                setInStore({ key: 'categores', data: category });
+                setInStore({ key: 'tasks', data: task });
+                dispatch(addCategory(category));
+                dispatch(addTask(task));
+            }
             openModal();
             setInput({ category: '', title: '', description: '' });
         }

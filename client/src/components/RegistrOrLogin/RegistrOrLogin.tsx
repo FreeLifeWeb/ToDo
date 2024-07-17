@@ -51,7 +51,7 @@ export const RegistrOrLogin = () => {
         }
         dispatch(login(form));
         setForm({ name: '', email: '', password: '' });
-        navigate('/home');
+        navigate('/');
     }
     return (
         <div className={styles.registrBorder}>
